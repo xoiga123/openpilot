@@ -79,6 +79,7 @@ std::string read_file(const std::string& fn) {
   if (f.is_open()) {
     f.seekg(0, std::ios::end);
     int size = f.tellg();
+    size = size;
     if (f.good() && size > 0) {
       std::string result(size, '\0');
       f.seekg(0, std::ios::beg);
