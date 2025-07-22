@@ -77,10 +77,11 @@ int set_file_descriptor_limit(uint64_t limit_val) {
 std::string read_file(const std::string& fn) {
   std::ifstream f(fn, std::ios::binary | std::ios::in);
   if (f.is_open()) {
+    std::streampos start = f.tellg();
     f.seekg(0, std::ios::end);
-    std::streampos pos = f.tellg();
-    if (f.good() && pos > 0) {
-      std::streamsize size = static_cast<std::streamsize>(pos);
+    std::streampos end = f.tellg();
+    std::streamsize size = end - start;
+    if (f.good() && size > 0) {
       std::string result(size, '\0');
       f.seekg(0, std::ios::beg);
       f.read(result.data(), size);
