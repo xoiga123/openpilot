@@ -78,9 +78,9 @@ std::string read_file(const std::string& fn) {
   std::ifstream f(fn, std::ios::binary | std::ios::in);
   if (f.is_open()) {
     f.seekg(0, std::ios::end);
-    int size = f.tellg();
-    size = size;
-    if (f.good() && size > 0) {
+    std::streampos pos = f.tellg();
+    if (f.good() && pos > 0) {
+      std::streamsize size = static_cast<std::streamsize>(pos);
       std::string result(size, '\0');
       f.seekg(0, std::ios::beg);
       f.read(result.data(), size);
